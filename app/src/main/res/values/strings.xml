@@ -5,7 +5,7 @@
     <string name="iwurv_price">£%1$.2f</string>
 
     <!-- top bar titles -->
-    <string name="iwurv_top_bar_home_title">Home/App Title</string>
+    <string name="iwurv_top_bar_home_title">Niram Canvas</string>
     <string name="iwurv_top_bar_cart_title">Cart</string>
     <string name="iwurv_top_bar_checkout_title">Checkout</string>
     <string name="iwurv_top_bar_orders_title">Orders</string>
@@ -19,12 +19,12 @@
     <string name="iwurv_bottom_bar_nav_item_settings_title">Settings</string>
 
     <!-- onboarding screen -->
-    <string name="iwurv_page_1_title">Strategic Planning</string>
-    <string name="iwurv_page_2_title">Operational Excellence</string>
-    <string name="iwurv_page_3_title">Change Management</string>
-    <string name="iwurv_page_1_description">Comprehensive strategic analysis and planning that aligns your business objectives with market opportunities and organizational capabilities.</string>
-    <string name="iwurv_page_2_description">Process optimization and operational improvement strategies that enhance efficiency, reduce costs, and drive sustainable performance.</string>
-    <string name="iwurv_page_3_description">Expert guidance through organizational transformation</string>
+    <string name="iwurv_page_1_title">Everything for your studio</string>
+    <string name="iwurv_page_2_title">Find the right material</string>
+    <string name="iwurv_page_3_title">Reserve, then collect</string>
+    <string name="iwurv_page_1_description">Explore paints, brushes, canvas, paper, drawing tools, and craft materials.</string>
+    <string name="iwurv_page_2_description">Browse clear categories and detailed product notes for every creative practice.</string>
+    <string name="iwurv_page_3_description">Reserve in minutes and collect from the store within 24 hours.</string>
     <string name="iwurv_next_button_title">Next</string>
     <string name="iwurv_start_button_title">Start</string>
     <string name="iwurv_skip_button_title">Skip</string>
@@ -57,16 +57,23 @@
 
     <!-- checkout dialog -->
     <string name="iwurv_checkout_dialog_title">Thank You for Your Order!</string>
-    <string name="iwurv_checkout_success_message">Your order has been successfully placed. Please hold on; our team will contact you shortly.</string>
+    <string name="iwurv_checkout_success_message">Your reservation is confirmed. Your order number is saved in Orders, and your items will be waiting in store for 24 hours.</string>
     <string name="iwurv_checkout_dialog_confirm">Done</string>
 
     <!-- settings screen -->
     <string name="iwurv_settings_screen_company_label">Company</string>
     <string name="iwurv_settings_screen_version_label">Version</string>
     <string name="iwurv_settings_screen_customer_support_label">Customer Support</string>
-    <string name="iwurv_company_name">Company Name</string>
-    <string name="iwurv_app_version">1.0.0</string>
-    <string name="iwurv_customer_support_link">https://website.org/</string>
+    <string name="iwurv_company_name">NIRAM LTD</string>
+    <string name="iwurv_app_version">1.0</string>
+    <string name="iwurv_customer_support_link">http://niram.surf/</string>
+
+    <string name="iwurv_category_paints">Paints</string>
+    <string name="iwurv_category_brushes">Brushes</string>
+    <string name="iwurv_category_canvases">Canvases</string>
+    <string name="iwurv_category_paper">Paper</string>
+    <string name="iwurv_category_drawing">Drawing</string>
+    <string name="iwurv_category_craft">Craft</string>
 
     <!-- clear cart dialog -->
     <string name="iwurv_clear_cart_dialog_title">Clear cart?</string>

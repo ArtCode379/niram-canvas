@@ -1,6 +1,6 @@
 {
-  "phase": "scaffold_cloned",
-  "updated_at": "2026-08-24T03:22:19.410854+00:00",
+  "phase": "github_push_started",
+  "updated_at": "2026-08-24T03:43:42.123711+00:00",
   "slug": "niram-canvas",
   "type": "shop",
   "package": "niram.artmaterials.niramcanvas",
@@ -12,6 +12,15 @@
   "domain": "http://niram.surf/",
   "company": "NIRAM LTD",
   "repo_url": "https://github.com/ArtCode379/niram-canvas",
-  "quality_status": "not_run",
-  "build_status": "not_run"
+  "quality_status": "passed",
+  "build_status": "passed",
+  "icon_primary": "#B94F32",
+  "icon_status": "imagegen",
+  "icon_error": "generate-icon.sh exited 1",
+  "quality_attempt": 2,
+  "quality_errors": 0,
+  "quality_result_file": "/tmp/niram-canvas/quality-result.txt",
+  "build_exit_code": 0,
+  "build_result_file": "/tmp/niram-canvas/build-result.txt",
+  "build_attempt": 2
 }

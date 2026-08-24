@@ -1,11 +1,18 @@
 package niram.artmaterials.niramcanvas.ui.composable.screen.checkout
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -14,6 +21,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import niram.artmaterials.niramcanvas.ui.state.DataUiState
 import niram.artmaterials.niramcanvas.ui.viewmodel.CheckoutViewModel
@@ -27,53 +37,93 @@ fun CheckoutScreen(
 ) {
     val focusManager = LocalFocusManager.current
     val orderState by viewModel.orderState.collectAsStateWithLifecycle()
-    val emailInvalidState by viewModel.emailInvalidState.collectAsStateWithLifecycle()
-
-    val isButtonEnabled by remember {
+    val emailInvalid by viewModel.emailInvalidState.collectAsStateWithLifecycle()
+    val enabled by remember {
         derivedStateOf {
-            viewModel.customerFirstName.isNotEmpty() &&
-                    viewModel.customerLastName.isNotEmpty() &&
-                    viewModel.customerEmail.isNotEmpty()
+            viewModel.customerFirstName.isNotBlank() &&
+                viewModel.customerLastName.isNotBlank() &&
+                viewModel.customerEmail.isNotBlank()
         }
     }
-
     if (orderState is DataUiState.Populated) {
-        CheckoutDialog(
-            onConfirm = onNavigateToOrdersScreen
-        )
+        CheckoutDialog(onConfirm = onNavigateToOrdersScreen)
     }
-
     CheckoutContent(
-        customerFirstName = viewModel.customerFirstName,
-        customerLastName = viewModel.customerLastName,
-        customerEmail = viewModel.customerEmail,
-        isEmailInvalid = emailInvalidState,
+        firstName = viewModel.customerFirstName,
+        lastName = viewModel.customerLastName,
+        email = viewModel.customerEmail,
+        emailInvalid = emailInvalid,
         modifier = modifier,
         focusManager = focusManager,
-        isButtonEnabled = isButtonEnabled,
+        enabled = enabled,
         onFirstNameChanged = viewModel::updateCustomerFirstName,
         onLastNameChanged = viewModel::updateCustomerLastName,
         onEmailChanged = viewModel::updateCustomerEmail,
-        onPlaceOrderButtonClick = viewModel::placeOrder
+        onPlaceOrder = viewModel::placeOrder,
     )
 }
 
 @Composable
 private fun CheckoutContent(
-    customerFirstName: String,
-    customerLastName: String,
-    customerEmail: String,
-    isEmailInvalid: Boolean,
-    modifier: Modifier = Modifier,
+    firstName: String,
+    lastName: String,
+    email: String,
+    emailInvalid: Boolean,
+    modifier: Modifier,
     focusManager: FocusManager,
-    isButtonEnabled: Boolean,
+    enabled: Boolean,
     onFirstNameChanged: (String) -> Unit,
     onLastNameChanged: (String) -> Unit,
     onEmailChanged: (String) -> Unit,
-    onPlaceOrderButtonClick: () -> Unit,
+    onPlaceOrder: () -> Unit,
 ) {
-    Column(modifier = modifier) {
-
+    Column(
+        modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(14.dp),
+    ) {
+        Text("Reserve your order", style = MaterialTheme.typography.headlineMedium)
+        Text(
+            "Tell us who will collect the order. We will hold it at the store for 24 hours after confirmation.",
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        CheckoutTextField(
+            input = firstName,
+            onInputChange = onFirstNameChanged,
+            labelText = "First name",
+            modifier = Modifier.fillMaxWidth(),
+        )
+        CheckoutTextField(
+            input = lastName,
+            onInputChange = onLastNameChanged,
+            labelText = "Last name",
+            modifier = Modifier.fillMaxWidth(),
+        )
+        CheckoutTextField(
+            input = email,
+            onInputChange = onEmailChanged,
+            labelText = "Email",
+            modifier = Modifier.fillMaxWidth(),
+            isError = emailInvalid,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+        )
+        if (emailInvalid) {
+            Text("Enter a valid email address.", color = MaterialTheme.colorScheme.error)
+        }
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                Text("Collection summary", style = MaterialTheme.typography.titleLarge)
+                Text("Your selected items will be reserved together.")
+                Text("Collection window: 24 hours", color = MaterialTheme.colorScheme.primary)
+            }
+        }
+        Button(
+            onClick = onPlaceOrder,
+            enabled = enabled,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text("Place Reservation")
+        }
     }
 }
 
@@ -93,26 +143,10 @@ fun CheckoutTextField(
         onValueChange = onInputChange,
         modifier = modifier,
         enabled = enabled,
-        label = {
-            Text(
-                text = labelText,
-                style = MaterialTheme.typography.titleSmall,
-            )
-        },
+        label = { Text(labelText) },
         isError = isError,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         singleLine = true,
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.surface,
-            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-            focusedTextColor = MaterialTheme.colorScheme.onSurface,
-            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-            focusedBorderColor = MaterialTheme.colorScheme.primary,
-            unfocusedBorderColor = MaterialTheme.colorScheme.outline,
-            focusedLabelColor = MaterialTheme.colorScheme.primary,
-            unfocusedLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            cursorColor = MaterialTheme.colorScheme.primary
-        ),
     )
 }
