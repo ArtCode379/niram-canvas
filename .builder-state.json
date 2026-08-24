@@ -1,0 +1,17 @@
+{
+  "phase": "scaffold_cloned",
+  "updated_at": "2026-08-24T03:22:19.410854+00:00",
+  "slug": "niram-canvas",
+  "type": "shop",
+  "package": "niram.artmaterials.niramcanvas",
+  "prefix": "IWURV",
+  "app_name": "Niram Canvas",
+  "task_gid": "1217215654023254",
+  "task_name": "GB GW4 C1387",
+  "asana_url": "https://app.asana.com/1/1208304498069546/project/1213586227413017/task/1217215654023254",
+  "domain": "http://niram.surf/",
+  "company": "NIRAM LTD",
+  "repo_url": "https://github.com/ArtCode379/niram-canvas",
+  "quality_status": "not_run",
+  "build_status": "not_run"
+}
